@@ -28,6 +28,7 @@ content:
       - { name: body, label: Body, type: rich-text }
       - { name: tags, label: Tags, type: string, list: true }
       - { name: category, label: Category, type: string, list: true }
+      - { name: status, label: Status, type: boolean }
 
   - name: about
     label: About

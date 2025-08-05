@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.21",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.3.1",

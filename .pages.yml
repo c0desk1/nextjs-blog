@@ -26,14 +26,17 @@ content:
         fields:
           - { name: url, label: URL, type: image }
       - { name: body, label: Body, type: rich-text }
-  - name: tags
-    label: Tags
-    type: collection
-    path: _tags
-    view:
-     fields: [tags ]
-     
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: category, label: Category, type: string, list: true }
+
+  - name: about
+    label: About
+    type: file
+    path: src/app/about/page.md
     fields:
-      - { name: tags, label: Tags, type: string,  }
+      - { name: layout, type: string, hidden: true, default: "@/app/layout" }
+      - { name: title, label: Title, type: string }
+      - { name: body, label: Body, type: rich-text, options: { input: public/assets, output: /assets } }
+ 
     
     

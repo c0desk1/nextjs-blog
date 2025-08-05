@@ -31,9 +31,9 @@ content:
     type: collection
     path: _tags
     view:
-     fields: [title ]
+     fields: [tags ]
      
     fields:
-      - { name: title, label: Title, type: string, required: true }
+      - { name: tags, label: Tags, type: string,  }
     
     

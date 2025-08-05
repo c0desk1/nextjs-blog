@@ -14,13 +14,9 @@ import Breadcrumb from "@/app/_components/_ui/Breadcrumb";
 import BackToTop from "@/app/_components/_ui/BackToTop";
 import ReadingProgress from "@/app/_components/_ui/ReadingProgress";
 
-interface PostPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function Post({ params }: PostPageProps) {
+// The component function receives props with a 'params' property.
+// The type can be inferred, or defined inline for clarity.
+export default async function Post({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
   const { prevPost, nextPost } = getAdjacentPosts(params.slug);
 
@@ -62,7 +58,8 @@ export default async function Post({ params }: PostPageProps) {
   );
 }
 
-export function generateMetadata({ params }: PostPageProps): Metadata {
+// The generateMetadata function also receives props with a 'params' property.
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getPostBySlug(params.slug);
 
   if (!post) {

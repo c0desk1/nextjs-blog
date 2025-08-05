@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, getAdjacentPosts } from "@/lib/api";
+import { getPostBySlug, getAdjacentPosts, getAllPosts } from "@/lib/api";
 import { siteConfig } from "../../../lib/constants";
 import markdownToHtml from "../../../lib/markdownToHtml";
 import { Container } from "@/app/_components/container";
@@ -13,12 +13,13 @@ import ShareButtons from "@/app/_components/_ui/ShareButtons";
 import Breadcrumb from "@/app/_components/_ui/Breadcrumb";
 import BackToTop from "@/app/_components/_ui/BackToTop";
 import ReadingProgress from "@/app/_components/_ui/ReadingProgress";
+import { Post as PostInterface } from "@/interfaces/post";
 
-// The component function receives props with a 'params' property.
-// The type can be inferred, or defined inline for clarity.
 export default async function Post({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
-  const { prevPost, nextPost } = getAdjacentPosts(params.slug);
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+  const post = (await getPostBySlug(slug)) as PostInterface;
+  const { prevPost, nextPost } = await getAdjacentPosts(slug);
 
   if (!post) {
     return notFound();
@@ -58,9 +59,10 @@ export default async function Post({ params }: { params: { slug: string } }) {
   );
 }
 
-// The generateMetadata function also receives props with a 'params' property.
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+  const post = (await getPostBySlug(slug)) as PostInterface;
 
   if (!post) {
     return notFound();
@@ -77,7 +79,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   return posts.map((post) => ({
     slug: post.slug,

@@ -9,7 +9,7 @@ export function Intro() {
       <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
       {siteConfig.name}
       </h1>
-      <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
+      <h4 className="text-center md:text-left text-xl mt-5 md:pl-8">
         {siteConfig.description}
       </h4>
     </section>
